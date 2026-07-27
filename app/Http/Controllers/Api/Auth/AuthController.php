@@ -8,6 +8,8 @@ use App\Http\Resources\UserResource;
 use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Auth\RegisterRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class AuthController extends Controller
 {
@@ -51,6 +53,18 @@ class AuthController extends Controller
                 'user' => new UserResource($data['user']),
                 'token' => $data['token'],
             ],
+        ]);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function userProfile()
+    {
+        return response()->json([
+            'success' => true,
+            'message' => 'Authenticated user fetched successfully.',
+            'data' => new UserResource(Auth::user()),
         ]);
     }
 }
