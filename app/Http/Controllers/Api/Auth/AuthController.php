@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
 use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
@@ -31,8 +32,25 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function login()
+    /**
+     * Login User
+     *
+     * @param LoginRequest $request
+     * @return JsonResponse
+     */
+    public function login(LoginRequest $request): JsonResponse
     {
+        $data = $this->authService->login(
+            $request->validated()
+        );
 
+        return response()->json([
+            'success' => true,
+            'message' => 'Login successful.',
+            'data' => [
+                'user' => new UserResource($data['user']),
+                'token' => $data['token'],
+            ],
+        ]);
     }
 }
