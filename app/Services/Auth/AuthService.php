@@ -50,4 +50,19 @@ class AuthService
     {
         $user->currentAccessToken()->delete();
     }
+
+    /**
+     * @param User $user
+     * @param array $data
+     * @return User
+     */
+    public function updateProfile(User $user, array $data):User
+    {
+        $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+        ]);
+
+        return $user->refresh();
+    }
 }
