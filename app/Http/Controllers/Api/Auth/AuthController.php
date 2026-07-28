@@ -9,7 +9,7 @@ use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -65,6 +65,22 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Authenticated user fetched successfully.',
             'data' => new UserResource(Auth::user()),
+        ]);
+    }
+
+    /**
+     * Logout User
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request): JsonResponse
+    {
+        $this->authService->logout($request->user());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Logout successful.',
         ]);
     }
 }
