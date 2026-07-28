@@ -65,4 +65,22 @@ class AuthService
 
         return $user->refresh();
     }
+
+    /**
+     * @param User $user
+     * @param array $data
+     * @return void
+     */
+    public function changePassword(User $user, array $data): void
+    {
+        if (! Hash::check($data['current_password'], $user->password)) {
+            throw ValidationException::withMessages([
+                'current_password' => ['The current password is incorrect.'],
+            ]);
+        }
+
+        $user->update([
+            'password' => Hash::make($data['password']),
+        ]);
+    }
 }
