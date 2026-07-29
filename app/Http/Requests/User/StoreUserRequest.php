@@ -23,8 +23,8 @@ class StoreUserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-//            'phone' => ['nullable', 'string', 'max:20'],
-//            'status' => ['required', 'boolean']
+            'phone' => ['nullable', 'string', 'max:20'],
+            'status' => ['required', 'boolean']
         ];
     }
 
@@ -40,6 +40,10 @@ class StoreUserRequest extends FormRequest
             'password.required' => 'Password is required.',
             'password.min' => 'Password must be at least 8 characters.',
             'password.confirmed' => 'Password does not match.',
+            'phone.numeric' => 'Phone number is required.',
+            'phone.digits' => 'Phone number is required.',
+            'status.required' => 'Status is required.',
+            'status.boolean' => 'Status does not match.',
         ];
     }
 }

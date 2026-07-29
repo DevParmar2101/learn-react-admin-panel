@@ -13,8 +13,8 @@ class UserService
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-//            'phone' => $data['phone'] ?? null,
-//            'status' => $data['status']
+            'phone' => $data['phone'] ?? null,
+            'status' => $data['status']
         ]);
     }
 }
