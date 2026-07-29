@@ -15,7 +15,8 @@ Route::prefix('v1')->group(function () {
         Route::put('change-password', [AuthController::class,'changePassword']);
 
         Route::prefix('users')->group(function () {
-            Route::post('/', [UserController::class, 'store']);
+            Route::post('/index', [UserController::class, 'index']);
+            Route::post('/create', [UserController::class, 'store']);
         });
     });
 });
