@@ -96,4 +96,15 @@ class UserController extends Controller
             'message' => 'User deleted successfully.'
         ],201);
     }
+
+    public function restore(int $id)
+    {
+        $user = $this->userService->restore($id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User restored successfully.',
+            'data' => new UserResource($user),
+        ]);
+    }
 }

@@ -20,7 +20,8 @@ Route::prefix('v1')->group(function () {
             Route::post('/create', [UserController::class, 'store']);
             Route::get('/view/{user}',[UserController::class, 'show']);
             Route::put('/update/{user}', [UserController::class, 'update']);
-            Route::delete('delete/{user}', [UserController::class, 'destroy']);
+            Route::delete('/delete/{user}', [UserController::class, 'destroy']);
+            Route::patch('/restore/{user}', [UserController::class, 'restore']);
         });
 
     });

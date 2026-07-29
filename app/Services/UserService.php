@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
@@ -75,5 +78,17 @@ class UserService
     public function destroy(User $user): void
     {
         $user->delete();
+    }
+
+    /**
+     * @param int $id
+     * @return Collection|Model|SoftDeletes|null
+     */
+    public function restore(int $id): Model|Collection|SoftDeletes|null
+    {
+        $user = User::withTrashed()->find($id);
+        $user->restore();
+
+        return $user->refresh();
     }
 }
