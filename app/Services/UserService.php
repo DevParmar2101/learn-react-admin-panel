@@ -50,4 +50,21 @@ class UserService
             $request->get('per_page',5)
         );
     }
+
+    /**
+     * @param User $user
+     * @param array $data
+     * @return User
+     */
+    public function update(User $user, array $data)
+    {
+        $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'] ?? null,
+            'status' => $data['status'],
+        ]);
+
+        return $user->refresh();
+    }
 }

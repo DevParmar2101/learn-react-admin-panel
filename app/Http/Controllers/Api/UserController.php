@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\UserService;
@@ -60,6 +61,24 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'User fetched successfully.',
+            'data' => new UserResource($user),
+        ]);
+    }
+
+    /**
+     * Update User
+     *
+     * @param UpdateUserRequest $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function update(UpdateUserRequest $request, User $user)
+    {
+        $user = $this->userService->update($user, $request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User updated successfully.',
             'data' => new UserResource($user),
         ]);
     }
