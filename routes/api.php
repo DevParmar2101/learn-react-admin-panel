@@ -17,6 +17,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('users')->group(function () {
             Route::post('/index', [UserController::class, 'index']);
             Route::post('/create', [UserController::class, 'store']);
+            Route::get('/view/{user}',[UserController::class, 'show']);
         });
     });
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,10 @@ class UserController extends Controller
     public function __construct(protected UserService $userService)
     {}
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function index(Request $request)
     {
         $users = $this->userService->index($request);
@@ -44,5 +49,18 @@ class UserController extends Controller
             'message' => 'User created successfully',
             'data' => new UserResource($user)
         ],201);
+    }
+
+    /**
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function show(User $user)
+    {
+        return response()->json([
+            'success' => true,
+            'message' => 'User fetched successfully.',
+            'data' => new UserResource($user),
+        ]);
     }
 }
