@@ -62,7 +62,7 @@ class UserController extends Controller
             'success' => true,
             'message' => 'User fetched successfully.',
             'data' => new UserResource($user),
-        ]);
+        ],201);
     }
 
     /**
@@ -80,6 +80,20 @@ class UserController extends Controller
             'success' => true,
             'message' => 'User updated successfully.',
             'data' => new UserResource($user),
-        ]);
+        ],201);
+    }
+
+    /**
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function destroy(User $user)
+    {
+        $this->userService->destroy($user);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User deleted successfully.'
+        ],201);
     }
 }

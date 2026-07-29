@@ -67,4 +67,13 @@ class UserService
 
         return $user->refresh();
     }
+
+    /**
+     * @param User $user
+     * @return void
+     */
+    public function destroy(User $user): void
+    {
+        $user->delete();
+    }
 }
