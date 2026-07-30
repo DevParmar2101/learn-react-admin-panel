@@ -26,6 +26,7 @@ Route::prefix('v1')->group(function () {
         });
 
         Route::prefix('customers')->group(function () {
+            Route::post('/index', [CustomerController::class, 'index']);
             Route::post('/create', [CustomerController::class, 'store']);
         });
 
