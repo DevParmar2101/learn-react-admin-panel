@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,10 @@ Route::prefix('v1')->group(function () {
             Route::put('/update/{user}', [UserController::class, 'update']);
             Route::delete('/delete/{user}', [UserController::class, 'destroy']);
             Route::patch('/restore/{user}', [UserController::class, 'restore']);
+        });
+
+        Route::prefix('customers')->group(function () {
+            Route::post('/create', [CustomerController::class, 'store']);
         });
 
     });
