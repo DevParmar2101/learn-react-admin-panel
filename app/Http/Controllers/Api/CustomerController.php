@@ -37,7 +37,7 @@ class CustomerController extends Controller
                 'current_page' => $customers->currentPage(),
                 'last_page' => $customers->lastPage(),
             ]
-        ]);
+        ], 201);
     }
 
     /**
@@ -51,8 +51,7 @@ class CustomerController extends Controller
         return response()->json([
             'message' => 'Customer created successfully',
             'data' => new UserResource($customer)
-
-        ]);
+        ], 201);
     }
 
     /**
@@ -65,6 +64,20 @@ class CustomerController extends Controller
             'success' => true,
             'message' => "Customer fetched successfully",
             'data' => new CustomerResource($customer),
-        ]);
+        ], 201);
+    }
+
+    /**
+     * @param Customer $customer
+     * @return JsonResponse
+     */
+    public function destroy(Customer $customer)
+    {
+        $this->customerService->destroy($customer);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Customer deleted successfully",
+        ], 201);
     }
 }

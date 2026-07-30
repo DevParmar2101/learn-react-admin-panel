@@ -47,4 +47,13 @@ class CustomerService
             'status' => $data['status'],
         ]);
     }
+
+    /**
+     * @param Customer $customer
+     * @return void
+     */
+    public function destroy(Customer $customer)
+    {
+        $customer->delete();
+    }
 }
