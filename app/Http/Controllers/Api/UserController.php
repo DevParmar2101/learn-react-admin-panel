@@ -13,8 +13,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function __construct(protected UserService $userService)
-    {}
+    public UserService $userService;
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
 
     /**
      * @param Request $request
