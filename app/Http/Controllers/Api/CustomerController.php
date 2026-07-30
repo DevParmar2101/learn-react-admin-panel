@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\StoreCustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Http\Resources\UserResource;
+use App\Models\Customer;
 use App\Services\CustomerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -51,6 +52,19 @@ class CustomerController extends Controller
             'message' => 'Customer created successfully',
             'data' => new UserResource($customer)
 
+        ]);
+    }
+
+    /**
+     * @param Customer $customer
+     * @return JsonResponse
+     */
+    public function show(Customer $customer)
+    {
+        return response()->json([
+            'success' => true,
+            'message' => "Customer fetched successfully",
+            'data' => new CustomerResource($customer),
         ]);
     }
 }
