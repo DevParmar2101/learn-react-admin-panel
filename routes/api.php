@@ -30,6 +30,7 @@ Route::prefix('v1')->group(function () {
             Route::post('/create', [CustomerController::class, 'store']);
             Route::get('/view/{customer}', [CustomerController::class, 'show']);
             Route::delete('delete/{customer}', [CustomerController::class, 'destroy']);
+            Route::patch('/restore/{customer}', [CustomerController::class, 'restore']);
         });
 
     });

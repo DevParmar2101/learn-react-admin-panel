@@ -80,4 +80,19 @@ class CustomerController extends Controller
             'message' => "Customer deleted successfully",
         ], 201);
     }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function restore(int $id)
+    {
+        $customer = $this->customerService->restore($id);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Customer restored successfully",
+            'data' => new CustomerResource($customer),
+        ]);
+    }
 }

@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use App\Models\Customer;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -55,5 +58,17 @@ class CustomerService
     public function destroy(Customer $customer)
     {
         $customer->delete();
+    }
+
+    /**
+     * @param int $id
+     * @return Collection|Model|SoftDeletes|null
+     */
+    public function restore(int $id)
+    {
+        $customer = Customer::withTrashed()->find($id);
+        $customer->restore();
+
+        return $customer->refresh();
     }
 }

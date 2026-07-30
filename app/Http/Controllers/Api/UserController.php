@@ -100,6 +100,10 @@ class UserController extends Controller
         ],201);
     }
 
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
     public function restore(int $id)
     {
         $user = $this->userService->restore($id);
