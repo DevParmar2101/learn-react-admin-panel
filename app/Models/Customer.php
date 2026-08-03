@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\AddressType;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable([
@@ -72,5 +74,15 @@ class Customer extends Model
     public function updater()
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    /**
+     * Get the address associated with the customer
+     *
+     * @return MorphOne
+     */
+    public function officeAddress()
+    {
+        return $this->morphOne(Address::class, 'addressable')->where('type', AddressType::Office);
     }
 }

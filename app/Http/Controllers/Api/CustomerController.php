@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreAddressRequest;
-use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\Customer\StoreCustomerRequest;
+use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Http\Resources\UserResource;
 use App\Models\Customer;
@@ -97,6 +97,17 @@ class CustomerController extends Controller
             'success' => true,
             'message' => "Customer restored successfully",
             'data' => new CustomerResource($customer),
+        ]);
+    }
+
+    public function update(UpdateCustomerRequest $request, Customer $customer)
+    {
+        $updateCustomer = $this->customerService->update($customer, $request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => "Customer details updated successfully",
+            'data' => new CustomerResource($updateCustomer),
         ]);
     }
 }

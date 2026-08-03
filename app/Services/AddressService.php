@@ -21,4 +21,26 @@ class AddressService
             'is_default' => $data['is_default'],
         ]);
     }
+
+    /**
+     * @param Address $data
+     * @param $addressable_type_data
+     * @return mixed
+     */
+    public function update(Address $addressable_type_data, $data)
+    {
+
+        $addressable_type_data->update([
+            'address_line_1' => $data['address_line_1'],
+            'address_line_2' => $data['address_line_2'],
+            'type' => $data['type'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'country' => $data['country'],
+            'postal_code' => $data['postal_code'],
+            'is_default' => $data['is_default'],
+        ]);
+
+        return $addressable_type_data->refresh();
+    }
 }

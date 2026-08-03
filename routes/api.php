@@ -31,6 +31,7 @@ Route::prefix('v1')->group(function () {
             Route::get('/view/{customer}', [CustomerController::class, 'show']);
             Route::delete('delete/{customer}', [CustomerController::class, 'destroy']);
             Route::patch('/restore/{customer}', [CustomerController::class, 'restore']);
+            Route::put('update/{customer}', [CustomerController::class, 'update']);
         });
 
     });

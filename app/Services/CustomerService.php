@@ -11,6 +11,13 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class CustomerService
 {
+    protected AddressService $addressService;
+
+    public function __construct(AddressService $addressService)
+    {
+        $this->addressService = $addressService;
+    }
+
     /**
      * @param Request $request
      * @return LengthAwarePaginator
@@ -69,6 +76,24 @@ class CustomerService
         $customer = Customer::withTrashed()->find($id);
         $customer->restore();
 
+        return $customer->refresh();
+    }
+
+    /**
+     * @param Customer $customer
+     * @param array $data
+     * @return Customer
+     */
+    public function update(Customer $customer, array $data)
+    {
+        $customer->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'status' => $data['status'],
+        ]);
+
+        $this->addressService->update($customer->officeAddress, $data['address']);
         return $customer->refresh();
     }
 }
