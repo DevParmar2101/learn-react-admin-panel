@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AddressType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,6 +35,7 @@ class Address extends Model
      */
     protected $casts = [
         'is_default' => 'boolean',
+        'type' => AddressType::class,
     ];
 
     /**

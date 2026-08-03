@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Customer\StoreCustomerRequest;
+use App\Http\Requests\StoreAddressRequest;
+use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Http\Resources\UserResource;
 use App\Models\Customer;
+use App\Services\AddressService;
 use App\Services\CustomerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,9 +16,11 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     public CustomerService $customerService;
-    public function __construct(CustomerService $customerService)
+    public AddressService $addressService;
+    public function __construct(CustomerService $customerService, AddressService $addressService)
     {
         $this->customerService = $customerService;
+        $this->addressService = $addressService;
     }
 
     /**
@@ -47,10 +51,10 @@ class CustomerController extends Controller
     public function store(StoreCustomerRequest $request)
     {
         $customer = $this->customerService->store($request->validated());
-
+        $address = $this->addressService->store($request->validated('address'), $customer);
         return response()->json([
             'message' => 'Customer created successfully',
-            'data' => new UserResource($customer)
+            'data' => new UserResource($customer, $address)
         ], 201);
     }
 
