@@ -26,6 +26,15 @@ class StoreCustomerRequest extends FormRequest
             'address.country' => ['required', 'string'],
             'address.postal_code' => ['required', 'string'],
             'address.is_default' => ['required', 'integer'],
+
+            'company' => ['required', 'array'],
+            'company.name' => ['required', 'string','max:255'],
+            'company.phone' => ['nullable', 'string', 'max:20'],
+            'company.email' => ['nullable', 'string', 'max:255'],
+            'company.website' => ['nullable', 'string', 'max:255'],
+            'company.gst_number' => ['nullable', 'string', 'max:255'],
+            'company.registration_number' => ['nullable', 'string', 'max:255'],
+            'company.status' => ['required', 'integer'],
         ];
     }
 
@@ -37,6 +46,9 @@ class StoreCustomerRequest extends FormRequest
         return true;
     }
 
+    /**
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -56,6 +68,16 @@ class StoreCustomerRequest extends FormRequest
             'address.country.required' => 'Address Country is required',
             'address.postal_code.required' => 'Address Postal Code is required',
             'address.is_default.required' => 'Address Default is required',
+
+            'company.name.required' => 'Company name is required',
+            'company.phone.max' => 'company phone is too long.',
+            'company.phone.required' => 'Company phone is required',
+            'company.email.required' => 'Company email is required',
+            'company.website.required' => 'Company website is required',
+            'company.gst_number.required' => 'Company GST number is required',
+            'company.registration_number.required' => 'Company Registration number is required',
+            'company.status.required' => 'Company status is required',
+
         ];
     }
 }

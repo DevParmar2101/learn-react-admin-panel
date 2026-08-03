@@ -6,6 +6,11 @@ use App\Models\Address;
 
 class AddressService
 {
+    /**
+     * @param $data
+     * @param $addressable_type_data
+     * @return mixed
+     */
     public function store($data, $addressable_type_data)
     {
         return Address::create([
@@ -23,9 +28,9 @@ class AddressService
     }
 
     /**
-     * @param Address $data
-     * @param $addressable_type_data
-     * @return mixed
+     * @param Address $addressable_type_data
+     * @param $data
+     * @return Address
      */
     public function update(Address $addressable_type_data, $data)
     {

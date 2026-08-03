@@ -51,7 +51,7 @@ class CustomerController extends Controller
     public function store(StoreCustomerRequest $request)
     {
         $customer = $this->customerService->store($request->validated());
-        $address = $this->addressService->store($request->validated('address'), $customer);
+        $address = $this->addressService->store($request->validated()['address'], $customer);
         return response()->json([
             'message' => 'Customer created successfully',
             'data' => new UserResource($customer, $address)
