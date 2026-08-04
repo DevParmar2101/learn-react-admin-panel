@@ -9,6 +9,7 @@ use App\Http\Resources\CustomerResource;
 use App\Http\Resources\UserResource;
 use App\Models\Customer;
 use App\Services\AddressService;
+use App\Services\CompanyService;
 use App\Services\CustomerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -17,10 +18,12 @@ class CustomerController extends Controller
 {
     public CustomerService $customerService;
     public AddressService $addressService;
-    public function __construct(CustomerService $customerService, AddressService $addressService)
+    public CompanyService $companyService;
+    public function __construct(CustomerService $customerService, AddressService $addressService, CompanyService $companyService)
     {
         $this->customerService = $customerService;
         $this->addressService = $addressService;
+        $this->companyService = $companyService;
     }
 
     /**
@@ -52,9 +55,14 @@ class CustomerController extends Controller
     {
         $customer = $this->customerService->store($request->validated());
         $address = $this->addressService->store($request->validated()['address'], $customer);
+        if (count($request['companies']) >=1) {
+            foreach ($request['companies'] as $i => $company) {
+                $this->companyService->store($company, $customer);
+            }
+        }
         return response()->json([
             'message' => 'Customer created successfully',
-            'data' => new UserResource($customer, $address)
+            'data' => new CustomerResource($customer)
         ], 201);
     }
 

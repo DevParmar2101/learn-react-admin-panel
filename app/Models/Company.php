@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'status',
     'created_by',
     'updated_by',
+    'customer_id'
 ])]
 class Company extends Model
 {
@@ -67,5 +68,13 @@ class Company extends Model
     public function updater()
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    /**
+     * User who last updated the company.
+     */
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 }

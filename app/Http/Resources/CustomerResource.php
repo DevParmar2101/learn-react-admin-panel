@@ -22,7 +22,6 @@ class CustomerResource extends JsonResource
                 'country' => $this->officeAddress->country,
                 'postal_code' => $this->officeAddress->postal_code,
                 'is_default' => $this->officeAddress->is_default,
-
             ]
         ];
     }

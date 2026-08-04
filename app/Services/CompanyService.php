@@ -8,9 +8,10 @@ class CompanyService
 {
     /**
      * @param $data
+     * @param $customer
      * @return mixed
      */
-    public function store($data)
+    public function store($data, $customer)
     {
         return Company::create([
             'name' => $data['name'],
@@ -20,6 +21,7 @@ class CompanyService
             'gst_number' => $data['gst_number'],
             'registration_number' => $data['registration_number'],
             'status' => $data['status'],
+            'customer_id' => $customer['id'],
         ]);
     }
 }
