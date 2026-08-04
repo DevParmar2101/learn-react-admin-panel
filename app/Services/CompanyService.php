@@ -33,7 +33,6 @@ class CompanyService
      */
     public function update($data,Customer $customer)
     {
-//        dd($data);
         $company_data = Company::findOrFail($data['id']);
 
         $company_data->update([
