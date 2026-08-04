@@ -100,6 +100,11 @@ class CustomerController extends Controller
         ]);
     }
 
+    /**
+     * @param UpdateCustomerRequest $request
+     * @param Customer $customer
+     * @return JsonResponse
+     */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
         $updateCustomer = $this->customerService->update($customer, $request->validated());

@@ -29,6 +29,9 @@ class LoginRequest extends FormRequest
         return true;
     }
 
+    /**
+     * @return string[]
+     */
     public function messages()
     {
         return [

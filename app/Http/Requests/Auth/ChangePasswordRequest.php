@@ -25,6 +25,9 @@ class ChangePasswordRequest extends FormRequest
         return true;
     }
 
+    /**
+     * @return string[]
+     */
     public function message()
     {
         return [
