@@ -12,10 +12,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class CustomerService
 {
     protected AddressService $addressService;
+    protected CompanyService $companyService;
 
-    public function __construct(AddressService $addressService)
+    public function __construct(AddressService $addressService, CompanyService $companyService)
     {
         $this->addressService = $addressService;
+        $this->companyService = $companyService;
     }
 
     /**
@@ -92,8 +94,12 @@ class CustomerService
             'phone' => $data['phone'],
             'status' => $data['status'],
         ]);
-
         $this->addressService->update($customer->officeAddress, $data['address']);
+        if (count($data['companies']) >= 1){
+            foreach ($data['companies'] as $i => $company) {
+                $this->companyService->update($company, $customer);
+            }
+        }
         return $customer->refresh();
     }
 }

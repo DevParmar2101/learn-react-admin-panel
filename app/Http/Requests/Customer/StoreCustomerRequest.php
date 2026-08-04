@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Customer;
 
+use App\Enums\AddressType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCustomerRequest extends FormRequest
 {
@@ -18,7 +20,7 @@ class StoreCustomerRequest extends FormRequest
             'status' => ['required', 'boolean'],
 
             'address' => ['required', 'array'],
-            'address.type' => ['required', 'string'],
+            'address.type' => ['required', Rule::in(AddressType::cases())],
             'address.address_line_1' => ['required', 'string'],
             'address.address_line_2' => ['required', 'string'],
             'address.city' => ['required', 'string'],
@@ -78,7 +80,6 @@ class StoreCustomerRequest extends FormRequest
             'companies.*.gst_number.required' => 'Company GST number is required',
             'companies.*.registration_number.required' => 'Company Registration number is required',
             'companies.*.status.required' => 'Company status is required',
-
         ];
     }
 }

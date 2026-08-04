@@ -36,6 +36,17 @@ class UpdateCustomerRequest extends FormRequest
             'address.country' => ['required', 'string'],
             'address.postal_code' => ['required','string'],
             'address.is_default' => ['required', 'boolean'],
+
+            'companies' => ['required', 'array'],
+            'companies.*.id' => ['required', 'integer'],
+            'companies.*.name' => ['required', 'string' , 'max:255'],
+            'companies.*.phone' => ['nullable', 'string', 'max:20'],
+            'companies.*.email' => ['nullable', 'string', 'max:255'],
+            'companies.*.website' => ['nullable', 'string', 'max:255'],
+            'companies.*.gst_number' => ['nullable', 'string', 'max:255'],
+            'companies.*.registration_number' => ['nullable', 'string', 'max:255'],
+            'companies.*.status' => ['required', 'integer'],
+            'companies.*.customer_id' => ['nullable', 'integer'],
         ];
     }
 
@@ -60,7 +71,17 @@ class UpdateCustomerRequest extends FormRequest
             'address.state.required' => 'Address State is required.',
             'address.country.required' => 'Address Country is required.',
             'address.postal_code.required' => 'Address Postal Code is required.',
-            'address.is_default.required' => "Is default address is required."
+            'address.is_default.required' => "Is default address is required.",
+
+            'companies.*.id.required' => 'Company name is required.',
+            'companies.*.name.required' => 'Company name is required.',
+            'companies.*.phone.required' => 'Company phone is required.',
+            'companies.*.email.required' => 'Company email is required.',
+            'companies.*.website.required' => 'Company website is required.',
+            'companies.*.gst_number.required' => 'Company GST number is required.',
+            'companies.*.registration_number.required' => 'Company registration number is required.',
+            'companies.*.status.required' => 'Company status is required.',
+            'companies.*.customer_id.required' => 'Customer id is required.',
         ];
     }
 }
