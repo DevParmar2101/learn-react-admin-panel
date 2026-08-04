@@ -6,6 +6,7 @@ use App\Enums\AddressType;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -84,5 +85,13 @@ class Customer extends Model
     public function officeAddress()
     {
         return $this->morphOne(Address::class, 'addressable')->where('type', AddressType::Office);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function companies()
+    {
+        return $this->hasMany(Company::class);
     }
 }
