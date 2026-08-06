@@ -2,8 +2,11 @@
 namespace App\Services\Auth;
 
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class AuthService
@@ -82,5 +85,47 @@ class AuthService
         $user->update([
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * @param $data
+     * @return void
+     */
+    public function forgotPassword($data): void
+    {
+        $status = Password::sendResetLink([
+            'email' => $data['email'],
+        ]);
+
+        if ($status !== Password::RESET_LINK_SENT) {
+            throw ValidationException::withMessages([
+                'email' => [__($status)],
+            ]);
+        }
+    }
+
+    /**
+     * @param $data
+     * @return void
+     */
+    public function resetPassword($data): void
+    {
+        $status = Password::reset(
+            $data,
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+                event(new PasswordReset($user));
+            }
+        );
+
+        if ($status !== Password::PASSWORD_RESET) {
+            throw ValidationException::withMessages([
+                'email' => [__($status)],
+            ]);
+        }
     }
 }
