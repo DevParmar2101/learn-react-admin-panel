@@ -32,11 +32,11 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Name is required',
-            'email.required' => 'Email is required',
-            'email.email' => 'Email is invalid',
+            'name.required' => 'Name is required.',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Email is invalid.',
             'email.unique' => 'This email is already registered.',
-            'password.required' => 'Password is required',
+            'password.required' => 'Password is required.',
             'password.confirmed' => 'Password confirmation does not match.',
             'password.min' => 'Password must be at least 8 characters.',
         ];
