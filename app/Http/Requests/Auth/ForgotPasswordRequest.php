@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Auth;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ForgotPasswordRequest extends FormRequest
@@ -18,12 +17,23 @@ class ForgotPasswordRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array[]
      */
     public function rules(): array
     {
         return [
             'email' => ['required', 'email'],
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function messages()
+    {
+        return [
+            'email.required' => 'Email is required',
+            'email.email' => 'Email is invalid',
         ];
     }
 }
